@@ -41,10 +41,6 @@ variable "private_subnet_ids" {
   type = list(string)
 }
 
-variable "subnets_count" {
-  description = "The number of subnets in public_subnet_ids. Required because of hashicorp/terraform#1497"
-}
-
 variable "vpc_security_group_ids" {
   type = list(string)
 }
