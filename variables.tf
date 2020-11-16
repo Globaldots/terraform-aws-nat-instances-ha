@@ -1,4 +1,7 @@
-variable "name" {}
+variable "name" {
+  type    = string
+  default = "default"
+}
 
 variable "tags" {
   type        = map(string)
@@ -16,8 +19,15 @@ variable "ami_publisher" {
   description = "The AWS account ID of the AMI publisher"
 }
 
-variable "instance_type" {}
-variable "instance_count" {}
+variable "instance_type" {
+  type    = string
+  default = "t3a.micro"
+}
+
+variable "instance_count" {
+  type    = number
+  default = 1
+}
 
 variable "az_list" {
   type = list(string)
