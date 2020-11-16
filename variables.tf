@@ -1,7 +1,7 @@
 variable "name" {}
 
 variable "tags" {
-  type        = "map"
+  type        = map(string)
   default     = {}
   description = "A map of tags to add to all resources"
 }
@@ -12,7 +12,7 @@ variable "ami_name_pattern" {
 }
 
 variable "ami_publisher" {
-  default     = "099720109477"                            # Canonical
+  default     = "099720109477" # Canonical
   description = "The AWS account ID of the AMI publisher"
 }
 
@@ -20,15 +20,15 @@ variable "instance_type" {}
 variable "instance_count" {}
 
 variable "az_list" {
-  type = "list"
+  type = list(string)
 }
 
 variable "public_subnet_ids" {
-  type = "list"
+  type = list(string)
 }
 
 variable "private_subnet_ids" {
-  type = "list"
+  type = list(string)
 }
 
 variable "subnets_count" {
@@ -36,7 +36,7 @@ variable "subnets_count" {
 }
 
 variable "vpc_security_group_ids" {
-  type = "list"
+  type = list(string)
 }
 
 variable "aws_key_name" {}
@@ -58,3 +58,4 @@ variable "route_table_identifier" {
   description = "Indentifier used by AWSnycast route table regexp"
   default     = "rt-private"
 }
+

@@ -1,6 +1,6 @@
 resource "aws_iam_instance_profile" "nat_profile" {
   name = "${var.name}-nat_ha_profile"
-  role = "${aws_iam_role.role.name}"
+  role = aws_iam_role.role.name
 }
 
 resource "aws_iam_role" "role" {
@@ -24,7 +24,7 @@ EOF
 
 resource "aws_iam_role_policy" "modify_routes" {
   name = "nat_ha_modify_routes"
-  role = "${aws_iam_role.role.id}"
+  role = aws_iam_role.role.id
 
   policy = <<EOF
 {
@@ -46,3 +46,4 @@ resource "aws_iam_role_policy" "modify_routes" {
 }
 EOF
 }
+
