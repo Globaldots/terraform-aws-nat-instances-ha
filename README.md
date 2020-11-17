@@ -1,4 +1,4 @@
-# tf_aws_nat
+# this module is based on [tf_aws_nat](https://github.com/terraform-community-modules/tf_aws_nat)
 
 ## Module to launch NAT instances on AWS.
 
@@ -59,7 +59,7 @@ resource "aws_security_group" "nat" {
 }
 
 module "nat" {
-  source = "github.com/Globaldots/tf_aws_nat"
+  source = "github.com/Globaldots/terraform-aws-nat-instances-ha"
 
   name = module.vpc.name
 
