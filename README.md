@@ -73,6 +73,10 @@ module "nat" {
 
 ```
 
+## Authors
+
+Module managed by [Yurii Polishchuk](https://github.com/yuriipolishchuk).
+
 # License
 
 Apache2, see the included LICENSE file for more information.
