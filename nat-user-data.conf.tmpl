@@ -18,7 +18,7 @@ write_files:
 -   path: /etc/awsnycast.yaml
     content: |
         ---
-        poll_time: 300
+        poll_time: ${poll_time}
         healthchecks:
             public:
                 type: ping
@@ -26,6 +26,12 @@ write_files:
                 rise: 2
                 fall: 10
                 every: 1
+        remote_healthchecks:
+            service:
+                type: ping
+                rise: 5
+                fall: 5
+                every: 5
         routetables:
              my_az:
                 find:
@@ -54,6 +60,7 @@ write_files:
                   - cidr: 0.0.0.0/0
                     instance: SELF
                     healthcheck: public
+                    remote_healthcheck: service
                     if_unhealthy: true
 # The commands below need to run on every boot, but bootcmd runs too early,
 # before the write_files has run, but on every boot, where as runcmd only runs

@@ -10,7 +10,7 @@ variable "tags" {
 }
 
 variable "ami_name_pattern" {
-  default     = "ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server-*"
+  default     = "ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"
   description = "The name filter to use in data.aws_ami"
 }
 
@@ -24,31 +24,40 @@ variable "instance_type" {
   default = "t3a.micro"
 }
 
-variable "instance_count" {
-  type    = number
-  default = 1
-}
-
-variable "az_list" {
-  type = list(string)
-}
-
 variable "public_subnet_ids" {
   type = list(string)
+
+  validation {
+    condition = (
+      length(var.public_subnet_ids) >= 2
+    )
+    error_message = "At least 2 public subnets must be provided for HA."
+  }
 }
 
 variable "private_subnet_ids" {
   type = list(string)
+
+  validation {
+    condition = (
+      length(var.private_subnet_ids) >= 2
+    )
+    error_message = "At least 2 private subnets must be provided for HA."
+  }
 }
 
 variable "vpc_security_group_ids" {
   type = list(string)
 }
 
-variable "aws_key_name" {}
+variable "aws_key_name" {
+  type    = string
+  default = ""
+}
 
 variable "awsnycast_deb_url" {
-  default = "https://github.com/bobtfish/AWSnycast/releases/download/v0.1.5/awsnycast_0.1.5-425_amd64.deb"
+  type    = string
+  default = "https://github.com/Globaldots/AWSnycast/releases/download/v0.2.2/awsnycast_0.2.2-0_amd64.deb"
 }
 
 variable "route_table_identifier" {
@@ -56,3 +65,8 @@ variable "route_table_identifier" {
   default     = "private"
 }
 
+variable "poll_time" {
+  type        = number
+  description = "AWS route tables poll rate"
+  default     = 30
+}
