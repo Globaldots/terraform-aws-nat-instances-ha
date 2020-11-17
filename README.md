@@ -73,6 +73,6 @@ module "nat" {
 
 ```
 
-# LICENSE
+# License
 
 Apache2, see the included LICENSE file for more information.
