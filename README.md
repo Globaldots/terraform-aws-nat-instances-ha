@@ -2,7 +2,7 @@
 
 ## Module to launch NAT instances on AWS.
 
-This module will provision a specified number of nat instances in the public subnets to allow
+This module provisions HA NAT service by launching autoscaling groups with NAT instances in the specified public subnets to allow
 outbound internet traffic from the private subnets. For route publishing and High Availability
 each instance runs the [AWSnycast](https://github.com/bobtfish/AWSnycast) service. If the nat
 instance becomes unavailable it will remove the instance from the route table (this requires
@@ -13,28 +13,28 @@ is best for your use case please see the following:
 * https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html
 * https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat-gateway.html
 
-## Inputs
+Auto-healing is achieved with the help of autoscaling group: if one NAT instance has been terminated,
+ASG spins up a new one attaching proper ENI. 
 
+## Inputs
+    
+  * `name` - Name prefix for resources (defaults to "default")
   * `ami_name_pattern` - The regex to filter which ami used (defaults to Ubuntu Xenial 16.04)
   * `ami_publisher` - The ami publisher id (defaults to Canonical's)
-  * `instance_type` - The type of instance to provision (required)
-  * `instance_count` - The number of nat instances to provision. At least two are required for HA. It is recommended to have one per subnet (required)
-  * `az_list` - A list of availability zones to provision in (required)
+  * `instance_type` - The type of instance to provision (defaults to "t3a.micro")
   * `public_subnet_ids` - A list of the public subnets to provision in (required)
   * `private_subnet_ids` - A list of the private subnets to allow traffic from (required)
-  * `security_groups` - A list of security groups applied to the nat instances (required)
-  * `aws_key_name` - The name of the AWS key pair to provision the instances with (required)
-  * `ssh_bastion_host` - The ip of the bastion host
-  * `ssh_bastion_user` - The name of bastion user (required for ssh_bastion_host)
-  * `aws_private_key` - The contents of private key file for the bastion instance (required for ssh_bastion_host; this is fed to the `private_key` argument; renamed in v1.4, formerly `aws_key_location`)
-  * `tags` - A list of tags to apply to the nat instances
-  * `route_table_identifier` - The identifier used in the route table regexp used by AWSnycast. For backwards compatibility it defaults to "rt-private". If you are using the terraform-aws-vpc module you will need to set its value to "private"
+  * `vpc_security_group_ids` - A list of security groups applied to the nat eni interfaces (required)
+  * `aws_key_name` - The name of the AWS key pair to provision the instances with
+  * `tags` - A map of tags to apply to resources
+  * `route_table_identifier` - The identifier used in the route table regexp used by AWSnycast (defaults to "private" for  terraform-aws-vpc module compatibility)
+  * `awsnycast_deb_url` - The url of AWSnycast deb package
+  * `poll_time` -  "AWS route tables poll rate in seconds (defaults to 30)"
 
 ## Outputs
 
-  * `private_ips` - A list of the nat instances private ips
-  * `public_ips` - A list of the nat instances public ips
-  * `instance_ids` - A list of the nat instance ids
+  * `autoscaling_groups` - A list of the autoscaling groups
+  * `nat_eni_interfaces` - A list of the nat eni interfaces
 
 ## Usage
 ```hcl
@@ -59,22 +59,18 @@ resource "aws_security_group" "nat" {
 }
 
 module "nat" {
-  source                 = "github.com/terraform-community-modules/tf_aws_nat"
-  name                   = "${var.name}"
-  instance_type          = "t2.nano"
-  instance_count         = "2"
-  aws_key_name           = "mykeyname"
-  public_subnet_ids      = "${module.vpc.public_subnets}"
-  private_subnet_ids     = "${module.vpc.private_subnets}"
-  vpc_security_group_ids = ["${aws_security_group.nat.id}"]
-  az_list                = "${var.azs}"
-  subnets_count          = "${length(var.azs)}"
-  route_table_identifier = "private"
-  ssh_bastion_user       = "ubuntu"
-  ssh_bastion_host       = "${aws_instance.bastion.public_ip}"
-  # this was formerly aws_key_location, renamed in v1.4
-  aws_private_key        = "${file("pathtokeyfile")}"
+  source = "github.com/Globaldots/tf_aws_nat"
+
+  name = module.vpc.name
+
+  aws_key_name = module.key_pair.this_key_pair_key_name
+
+  public_subnet_ids  = module.vpc.public_subnets
+  private_subnet_ids = module.vpc.private_subnets
+
+  vpc_security_group_ids = [aws_security_group.nat.id]
 }
+
 ```
 
 # LICENSE
