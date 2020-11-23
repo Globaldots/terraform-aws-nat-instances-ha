@@ -19,7 +19,7 @@ ASG spins up a new one attaching proper ENI.
 ## Inputs
     
   * `name` - Name prefix for resources (defaults to "default")
-  * `ami_name_pattern` - The regex to filter which ami used (defaults to Ubuntu Xenial 16.04)
+  * `ami_name_pattern` - The regex to filter which ami used (defaults to Ubuntu 20.04)
   * `ami_publisher` - The ami publisher id (defaults to Canonical's)
   * `instance_type` - The type of instance to provision (defaults to "t3a.micro")
   * `public_subnet_ids` - A list of the public subnets to provision in (required)
