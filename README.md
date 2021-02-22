@@ -20,14 +20,18 @@ ASG spins up a new one attaching proper ENI.
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| terraform | >= 0.13.5 |
+| aws | >= 3.22.0 |
+| template | >= 2.1 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | n/a |
-| template | n/a |
+| aws | >= 3.22.0 |
+| template | >= 2.1 |
 
 ## Inputs
 
