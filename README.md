@@ -16,25 +16,10 @@ is best for your use case please see the following:
 Auto-healing is achieved with the help of autoscaling group: if one NAT instance has been terminated,
 ASG spins up a new one attaching proper ENI. 
 
-## Inputs
-    
-  * `name` - Name prefix for resources (defaults to "default")
-  * `ami_name_pattern` - The regex to filter which ami used (defaults to Ubuntu 20.04)
-  * `ami_publisher` - The ami publisher id (defaults to Canonical's)
-  * `instance_type` - The type of instance to provision (defaults to "t3a.micro")
-  * `public_subnet_ids` - A list of the public subnets to provision in (required)
-  * `private_subnet_ids` - A list of the private subnets to allow traffic from (required)
-  * `vpc_security_group_ids` - A list of security groups applied to the nat eni interfaces (required)
-  * `aws_key_name` - The name of the AWS key pair to provision the instances with
-  * `tags` - A map of tags to apply to resources
-  * `route_table_identifier` - The identifier used in the route table regexp used by AWSnycast (defaults to "private" for  terraform-aws-vpc module compatibility)
-  * `awsnycast_deb_url` - The url of AWSnycast deb package
-  * `poll_time` -  "AWS route tables poll rate in seconds (defaults to 30)"
 
-## Outputs
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
-  * `autoscaling_groups` - A list of the autoscaling groups
-  * `nat_eni_interfaces` - A list of the nat eni interfaces
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Usage
 ```hcl
