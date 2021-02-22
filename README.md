@@ -18,6 +18,40 @@ ASG spins up a new one attaching proper ENI.
 
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+No requirements.
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| aws | n/a |
+| template | n/a |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| ami\_name\_pattern | The name filter to use in data.aws\_ami | `string` | `"ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"` | no |
+| ami\_publisher | The AWS account ID of the AMI publisher | `string` | `"099720109477"` | no |
+| aws\_key\_name | n/a | `string` | `""` | no |
+| awsnycast\_deb\_url | n/a | `string` | `"https://github.com/Globaldots/AWSnycast/releases/download/v0.2.2/awsnycast_0.2.2-0_amd64.deb"` | no |
+| instance\_type | n/a | `string` | `"t3a.micro"` | no |
+| name | n/a | `string` | `"default"` | no |
+| poll\_time | AWS route tables poll rate | `number` | `30` | no |
+| private\_subnet\_ids | n/a | `list(string)` | n/a | yes |
+| public\_subnet\_ids | n/a | `list(string)` | n/a | yes |
+| route\_table\_identifier | Indentifier used by AWSnycast route table regexp | `string` | `"private"` | no |
+| tags | A map of tags to add to all resources | `map(string)` | `{}` | no |
+| vpc\_security\_group\_ids | n/a | `list(string)` | n/a | yes |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| autoscaling\_groups | n/a |
+| nat\_eni\_interfaces | n/a |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
