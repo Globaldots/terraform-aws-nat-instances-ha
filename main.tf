@@ -1,3 +1,4 @@
+# Provision one ENI per each provided public subnet
 resource "aws_network_interface" "nat_eni" {
   for_each = toset(var.public_subnet_ids)
 

@@ -16,25 +16,48 @@ is best for your use case please see the following:
 Auto-healing is achieved with the help of autoscaling group: if one NAT instance has been terminated,
 ASG spins up a new one attaching proper ENI. 
 
+
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| terraform | >= 0.13.5 |
+| aws | >= 3.22.0 |
+| template | >= 2.1 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| aws | >= 3.22.0 |
+| template | >= 2.1 |
+
 ## Inputs
-    
-  * `name` - Name prefix for resources (defaults to "default")
-  * `ami_name_pattern` - The regex to filter which ami used (defaults to Ubuntu 20.04)
-  * `ami_publisher` - The ami publisher id (defaults to Canonical's)
-  * `instance_type` - The type of instance to provision (defaults to "t3a.micro")
-  * `public_subnet_ids` - A list of the public subnets to provision in (required)
-  * `private_subnet_ids` - A list of the private subnets to allow traffic from (required)
-  * `vpc_security_group_ids` - A list of security groups applied to the nat eni interfaces (required)
-  * `aws_key_name` - The name of the AWS key pair to provision the instances with
-  * `tags` - A map of tags to apply to resources
-  * `route_table_identifier` - The identifier used in the route table regexp used by AWSnycast (defaults to "private" for  terraform-aws-vpc module compatibility)
-  * `awsnycast_deb_url` - The url of AWSnycast deb package
-  * `poll_time` -  "AWS route tables poll rate in seconds (defaults to 30)"
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| ami\_name\_pattern | The name filter to use in data.aws\_ami | `string` | `"ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"` | no |
+| ami\_publisher | The AWS account ID of the AMI publisher | `string` | `"099720109477"` | no |
+| aws\_key\_name | n/a | `string` | `""` | no |
+| awsnycast\_deb\_url | n/a | `string` | `"https://github.com/Globaldots/AWSnycast/releases/download/v0.2.2/awsnycast_0.2.2-0_amd64.deb"` | no |
+| instance\_type | n/a | `string` | `"t3a.micro"` | no |
+| name | n/a | `string` | `"default"` | no |
+| poll\_time | AWS route tables poll rate | `number` | `30` | no |
+| private\_subnet\_ids | n/a | `list(string)` | n/a | yes |
+| public\_subnet\_ids | n/a | `list(string)` | n/a | yes |
+| route\_table\_identifier | Indentifier used by AWSnycast route table regexp | `string` | `"private"` | no |
+| tags | A map of tags to add to all resources | `map(string)` | `{}` | no |
+| vpc\_security\_group\_ids | n/a | `list(string)` | n/a | yes |
 
 ## Outputs
 
-  * `autoscaling_groups` - A list of the autoscaling groups
-  * `nat_eni_interfaces` - A list of the nat eni interfaces
+| Name | Description |
+|------|-------------|
+| autoscaling\_groups | n/a |
+| nat\_eni\_interfaces | n/a |
+
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Usage
 ```hcl
