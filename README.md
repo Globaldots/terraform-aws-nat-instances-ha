@@ -1,6 +1,11 @@
-# this module is based on [tf_aws_nat](https://github.com/terraform-community-modules/tf_aws_nat)
+<!-- markdownlint-disable -->
+# terraform-aws-nat-instances-ha [![GitHub Action Tests](https://img.shields.io/github/workflow/status/Globaldots/terraform-aws-nat-instances-ha/Terraform?label=tests)](https://github.com/Globaldots/terraform-aws-nat-instances-ha/actions) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/globaldots/terraform-aws-nat-instances-ha)
+<!-- markdownlint-restore -->
 
-## Module to launch NAT instances on AWS.
+# terraform-aws-nat-instances-ha - Terraform Module to provision NAT instances on AWS
+
+## this module is based on [tf_aws_nat](https://github.com/terraform-community-modules/tf_aws_nat)
+
 
 This module provisions HA NAT service by launching autoscaling groups with NAT instances in the specified public subnets to allow
 outbound internet traffic from the private subnets. For route publishing and High Availability
