@@ -1,5 +1,5 @@
 <!-- markdownlint-disable -->
-[![GitHub Action Tests](https://img.shields.io/github/workflow/status/Globaldots/terraform-aws-nat-instances-ha/Terraform?label=tests)](https://github.com/Globaldots/terraform-aws-nat-instances-ha/actions) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/globaldots/terraform-aws-nat-instances-ha)
+[![GitHub Action Tests](https://img.shields.io/github/workflow/status/Globaldots/terraform-aws-nat-instances-ha/Terraform?label=tests)](https://github.com/Globaldots/terraform-aws-nat-instances-ha/actions) [![GitHub release (latest by date)](https://img.shields.io/github/v/release/globaldots/terraform-aws-nat-instances-ha)](https://github.com/globaldots/terraform-aws-nat-instances-ha/releases/latest)
 <!-- markdownlint-restore -->
 
 # terraform-aws-nat-instances-ha - Terraform Module to provision NAT instances on AWS
